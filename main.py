@@ -7,7 +7,29 @@ import os
 import shutil
 from pathlib import Path
 
+# The copy is the whole job: no transform, no network, no randomness.
 HERE = Path(__file__).resolve().parent
-OUT = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
-OUT.mkdir(parents=True, exist_ok=True)
-shutil.copyfile(HERE / "entry.txt", OUT / "entry.txt")
+
+
+def output_dir() -> Path:
+    """Return the directory the entry is copied to.
+
+    The harness sets MAKEFUN_OUTPUT_DIR; local runs fall back to /output.
+    The directory is created when it does not exist yet.
+    """
+    out = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
+    out.mkdir(parents=True, exist_ok=True)
+    return out
+
+
+def main() -> None:
+    """Copy the shipped entry.txt to the output directory, byte for byte.
+
+    No network, no third-party packages, no randomness: two runs with the
+    same shipped entry write byte-identical output every time.
+    """
+    shutil.copyfile(HERE / "entry.txt", output_dir() / "entry.txt")
+
+
+if __name__ == "__main__":
+    main()

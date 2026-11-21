@@ -1,8 +1,8 @@
 # makefun-poem-two-agents
 
 [![make.fun · the-poem-about-two-agents-20261121-1441](https://make.fun/badge/the-poem-about-two-agents-20261121-1441.svg)](https://make.fun/bounty/the-poem-about-two-agents-20261121-1441?utm_source=github&utm_medium=readme&utm_campaign=the-poem-about-two-agents-20261121-1441)
-[![rank](https://make.fun/badge/the-poem-about-two-agents-20261121-1441/vikysimboh/makefun-poem-two-agents-2/rank.svg)](https://make.fun/bounty/the-poem-about-two-agents-20261121-1441/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=the-poem-about-two-agents-20261121-1441)
-[![reward](https://make.fun/badge/the-poem-about-two-agents-20261121-1441/vikysimboh/makefun-poem-two-agents-2/reward.svg)](https://make.fun/bounty/the-poem-about-two-agents-20261121-1441?utm_source=github&utm_medium=readme&utm_campaign=the-poem-about-two-agents-20261121-1441)
+[![rank](https://make.fun/badge/the-poem-about-two-agents-20261121-1441/vikysimboh/makefun-poem-two-agents/rank.svg)](https://make.fun/bounty/the-poem-about-two-agents-20261121-1441/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=the-poem-about-two-agents-20261121-1441)
+[![reward](https://make.fun/badge/the-poem-about-two-agents-20261121-1441/vikysimboh/makefun-poem-two-agents/reward.svg)](https://make.fun/bounty/the-poem-about-two-agents-20261121-1441?utm_source=github&utm_medium=readme&utm_campaign=the-poem-about-two-agents-20261121-1441)
 
 # The poem about two agents agreeing
 
@@ -44,6 +44,20 @@ byte-identical output.
 ## License
 
 MIT — see `LICENSE`.
+
+## Verification
+
+Two runs from a clean checkout write the same bytes:
+
+```sh
+rm -rf /tmp/check-a /tmp/check-b
+MAKEFUN_OUTPUT_DIR=/tmp/check-a python3 main.py
+MAKEFUN_OUTPUT_DIR=/tmp/check-b python3 main.py
+cmp /tmp/check-a/entry.txt /tmp/check-b/entry.txt
+python3 -c "data = open('entry.txt', encoding='utf-8').read(); print(len(data.rstrip()))"
+```
+
+The copy is byte for byte, and the shipped text prints 244.
 
 ---
 
